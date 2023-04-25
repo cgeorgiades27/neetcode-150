@@ -1,6 +1,9 @@
 package ns005
 
 import (
+	"cgeorgiades27/neetcode-150/intheap"
+	"container/heap"
+	"fmt"
 	"sort"
 	"testing"
 )
@@ -12,21 +15,21 @@ func TopKFrequent(nums []int, k int) []int {
 	for _, num := range nums {
 		m[num]++
 	}
-	max, smax := 0, 0
-	var res []int
-	for index, count := range m {
-		if count > smax {
-			if count > max {
-				temp := max
-				max = count
-				smax = temp
-			} else {
-				smax = count
-			}
-			res = append(res, index)
+
+	h := &intheap.IntHeap{}
+	for _, count := range m {
+		if count > 0 {
+			heap.Push(h, count)
 		}
 	}
-	return res[len(res)-k:]
+
+	var resSlc []int
+	for i := 0; i < k; i++ {
+		val := heap.Pop(h)
+		resSlc = append(resSlc, val.(int))
+	}
+
+	return resSlc
 }
 
 func TestTopKFrequent(t *testing.T) {
@@ -48,16 +51,18 @@ func TestTopKFrequent(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		sort.SliceStable(test.nums, func(i, j int) bool {
-			return test.nums[i] < test.nums[j]
+		sort.SliceStable(test.expexted, func(i, j int) bool {
+			return test.expexted[i] < test.expexted[j]
 		})
 		actual := TopKFrequent(test.nums, test.target)
 		sort.SliceStable(actual, func(i, j int) bool {
 			return actual[i] < actual[j]
 		})
+		fmt.Println(test.expexted)
+		fmt.Println(actual)
 		for index, elem := range actual {
-			if elem != test.nums[index] {
-				t.Fatalf("%d - got: %d, wanted: %d", i, elem, test.nums[index])
+			if elem != test.expexted[index] {
+				t.Fatalf("%d - got: %d, wanted: %d", i, elem, test.expexted[index])
 			}
 		}
 	}
