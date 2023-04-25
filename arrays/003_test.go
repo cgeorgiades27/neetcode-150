@@ -1,4 +1,4 @@
-package ns003
+package arrays
 
 import "testing"
 

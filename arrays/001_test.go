@@ -1,4 +1,4 @@
-package nc001
+package arrays
 
 import "testing"
 

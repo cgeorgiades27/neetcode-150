@@ -1,4 +1,4 @@
-package nc004
+package arrays
 
 import (
 	"sort"

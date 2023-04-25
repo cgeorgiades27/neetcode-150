@@ -1,9 +1,8 @@
-package ns005
+package arrays
 
 import (
-	"cgeorgiades27/neetcode-150/intheap"
+	"cgeorgiades27/neetcode-150/internal/intheap"
 	"container/heap"
-	"fmt"
 	"sort"
 	"testing"
 )
@@ -58,8 +57,6 @@ func TestTopKFrequent(t *testing.T) {
 		sort.SliceStable(actual, func(i, j int) bool {
 			return actual[i] < actual[j]
 		})
-		fmt.Println(test.expexted)
-		fmt.Println(actual)
 		for index, elem := range actual {
 			if elem != test.expexted[index] {
 				t.Fatalf("%d - got: %d, wanted: %d", i, elem, test.expexted[index])
