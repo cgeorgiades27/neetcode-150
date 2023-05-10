@@ -1,6 +1,9 @@
 package linkedlist
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 // Given the head of a singly linked list, reverse the list, and return the reversed list.
 
@@ -11,7 +14,7 @@ func ReverseList(head *ListNode[int]) *ListNode[int] {
 		head = head.Next
 	}
 
-	var newHead *ListNode[int]
+	newHead := &ListNode[int]{}
 	if len(slc) > 0 {
 		newHead = slc[0]
 	}
@@ -19,6 +22,7 @@ func ReverseList(head *ListNode[int]) *ListNode[int] {
 		if i+1 < len(slc)-1 {
 			node.Next = slc[i+1]
 		}
+		fmt.Println(node)
 	}
 	return newHead
 }
