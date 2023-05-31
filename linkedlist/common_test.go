@@ -58,4 +58,7 @@ func TestSliceToList(t *testing.T) {
 		curr = curr.Next
 		actual = actual.Next
 	}
+	if actual != nil || curr != nil {
+		t.Error("expected both lists to be nil")
+	}
 }
