@@ -1,6 +1,8 @@
 package linkedlist
 
-import "testing"
+import (
+	"testing"
+)
 
 // Given the head of a singly linked list, reverse the list, and return the reversed list.
 
@@ -11,7 +13,7 @@ func ReverseList(head *ListNode[int]) *ListNode[int] {
 		head = head.Next
 	}
 
-	var newHead *ListNode[int]
+	newHead := &ListNode[int]{}
 	if len(slc) > 0 {
 		newHead = slc[0]
 	}
@@ -21,6 +23,20 @@ func ReverseList(head *ListNode[int]) *ListNode[int] {
 		}
 	}
 	return newHead
+}
+
+func ReverseListInPlace(head *ListNode[int]) *ListNode[int] {
+	curr := head
+	var prev *ListNode[int]
+
+	for curr != nil {
+		next := curr.Next
+		curr.Next = prev
+		prev = curr
+		curr = next
+	}
+
+	return prev
 }
 
 func TestReverseList(t *testing.T) {
@@ -40,8 +56,13 @@ func TestReverseList(t *testing.T) {
 
 	for i, test := range tests {
 		testSlc := SliceToList(test.input)
-		actual := ReverseList(testSlc)
+		actual := ReverseListInPlace(testSlc)
 		actualSlc := ListToSlice(actual)
+
+		if len(test.output) != len(actualSlc) {
+			t.Errorf("%d - expected len of %d, got len of %d", i, len(test.output), len(actualSlc))
+		}
+
 		for j, e := range test.output {
 			if actualSlc[j] != e {
 				t.Errorf("%d - expected %d, got %d", i, e, actualSlc[j])

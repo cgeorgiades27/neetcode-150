@@ -16,10 +16,13 @@ func ListToSlice[T any](head *ListNode[T]) []T {
 }
 
 func SliceToList[T any](slc []T) *ListNode[T] {
-	var head *ListNode[T]
+	head := &ListNode[T]{}
 	curr := head
 	for i := 0; i < len(slc); i++ {
 		curr.Val = slc[i]
+		if i == len(slc)-1 {
+			break
+		}
 		curr.Next = &ListNode[T]{}
 		curr = curr.Next
 	}
